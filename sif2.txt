@@ -1,0 +1,48 @@
+
+Solver 1
+  Equation = Electrostatics
+  Procedure = "StatElecSolve" "StatElecSolver"
+  Variable = Potential
+  Calculate Electric Field = True
+  Exec Solver = Always
+  Stabilize = True
+  Optimize Bandwidth = True
+  Steady State Convergence Tolerance = 1.0e-5
+  Nonlinear System Convergence Tolerance = 1.0e-7
+  Nonlinear System Max Iterations = 20
+  Nonlinear System Newton After Iterations = 3
+  Nonlinear System Newton After Tolerance = 1.0e-3
+  Nonlinear System Relaxation Factor = 1
+  Linear System Solver = Iterative
+  Linear System Iterative Method = BiCGStab
+  Linear System Max Iterations = 500
+  Linear System Convergence Tolerance = 1.0e-10
+  BiCGstabl polynomial degree = 2
+  Linear System Preconditioning = ILU0
+  Linear System ILUT Tolerance = 1.0e-3
+  Linear System Abort Not Converged = False
+  Linear System Residual Output = 10
+  Linear System Precondition Recompute = 1
+End
+
+Equation 1
+  Name = "Electric Field"
+  Electric Field = Computed
+  Active Solvers(1) = 1
+End
+
+Material 1
+  Name = "Copper"
+  Relative Permittivity = 10000
+End
+
+Material 2
+  Name = "FR4"
+  Relative Permittivity = 4
+End
+
+Material 3
+  Name = "LAr"
+  Relative Permittivity = 1.53
+End
+
