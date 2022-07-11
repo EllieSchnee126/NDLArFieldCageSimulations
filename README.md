@@ -6,6 +6,8 @@ geoBox.py builds and meshes the geometry of the field cage.<br />
 Example: 'geoBox.py -o example 10 3 38 10'<br />
 This runs the program with an output folder (which it creates) named "example", strip width of 10mm, strip spacing of 3mm, 38 strips, and a mesh fineness of 10mm<br />
 <br />
+geoBoxSingleVol.py takes the same parameters as geoBox.py but builds a model with a single drift volume. There is a section at the top of this program's code in order to change the other dimensions of the field cage.<br />
+<br />
 sifWriter.py writes the sif file for elmer using sif1.txt, sif2.txt, and mesh.boundary.<br />
 Example: 'sifWriter.py example 38'<br />
 This runs the program with the input/output folder of "example" and the parameter of 38 strips<br />
