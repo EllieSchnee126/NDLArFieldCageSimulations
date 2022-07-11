@@ -1,6 +1,6 @@
 # NDLArFieldCageSimulations
 <br />
-Both of these programs should be run in the same directory as eachother as well as sif1.txt and sif2.txt.<br />
+Both a geoBox and sifWriter program should be run in the same directory as eachother as well as sif1.txt and sif2.txt.<br />
 <br />
 geoBox.py builds and meshes the geometry of the field cage.<br />
 Example: 'geoBox.py -o example 10 3 38 10'<br />
