@@ -12,7 +12,7 @@ This runs the program with the input/output folder of "example" and the paramete
 <br />
 geoBoxSingleVol.py and sifWriterSingleVol.py take the same input parameters as their other respective programs but it will be for a model with a single drift volume. There is a section at the top of the geoBox program's code in order to change the other dimensions of the field cage.<br />
 <br />
-The multi-module programs can build multiple field cage structures near each other. This geometry also has the light collection panels with it. They take an etra parameter after the number of strips which is the number of modules.<br />
+The multi-module programs can build multiple field cage structures near each other. This geometry also has the light collection panels with it. They take an extra parameter after the number of strips which is the number of modules.<br />
 <br />
 The 25p programs make a model which is one half of one drift volume. This allows for a finer mesh, but has no ability to look at cathode or TPC crossings.<br />
 <br />
