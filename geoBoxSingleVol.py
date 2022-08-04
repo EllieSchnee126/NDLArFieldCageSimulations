@@ -7,8 +7,8 @@ def buildGeometry(stripWidth, stripSpacing, numberOfStrips):
     stripDistance = stripWidth + stripSpacing
     # ALL UNITS ARE IN MILLIMETERS!!!
     stripThickness = 0.1  # Thickness of the copper (or resistive polymer) on the FR-4 circuit board
-    boardThickness = 6.35  # Thickness of the cicuit board: 1/4 inch = 6.35 mm
-    plateTolerance = 0.5  # Distance between the endge of the cicuit board and the anode or cathode (can be 0)
+    boardThickness = 6.35  # Thickness of the circuit board: 1/4 inch = 6.35 mm
+    plateTolerance = 0.5  # Distance between the edge of the circuit board and the anode or cathode (can be 0)
     boxLength = 300  # The length of the outside of the field cage and is perpendicular to the drift direction
     boxHeight = 300  # The height of the outside of the field cage and is also perpendicular to the drift direction
     boxWidth = stripDistance*numberOfStrips  # The width of the outside of the field cage is parallel to the drift direction
@@ -82,8 +82,7 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='Create ND LAr geometry and export mesh')
-    parser.add_argument('-o', '--outFolderName',
-                        default='LArBox',
+    parser.add_argument('outFolderName',
                         help='output folder name (default: LArBox)')
     parser.add_argument('StripWidth',
                         help='Set the width of each strip')

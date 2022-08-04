@@ -46,3 +46,8 @@ Material 3
   Relative Permittivity = 1.53
 End
 
+Material 4
+  Name = "Polystyrene"
+  Relative Permittivity = 2.55
+End
+

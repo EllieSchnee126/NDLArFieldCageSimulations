@@ -1,8 +1,16 @@
+import numpy as np
 
-def writer(folderName, numberOfStrips):
+
+def writer(folderName, numberOfStrips, resistance):
     # Parameters
     peakVoltage = -25000
     voltageDifference = peakVoltage / (numberOfStrips + 1)
+
+    resistances = (1 + np.random.normal(size=numberOfStrips + 1) / 100) * 150 * 10 ** 6  # 150 M Ohm resistors
+    totalRes = 0
+    for res in resistances:
+        totalRes += res
+    current = peakVoltage / totalRes
 
     # Open files
     sif = open('./' + folderName + '/case.sif', 'w')
@@ -41,7 +49,10 @@ def writer(folderName, numberOfStrips):
     # Calculate Potentials
     potential = []
     for x in range(numberOfStrips + 2):
-        potential.append(x*voltageDifference)
+        if x == 0 or x == numberOfStrips + 1 or not resistance:
+            potential.append(x * voltageDifference)
+        else:
+            potential.append(current * resistances[x] + potential[x - 1])
 
     # Find number of boundaries
     lines = boundary.readlines()
@@ -90,18 +101,19 @@ def writer(folderName, numberOfStrips):
 
 
 def main(args):
-    writer(args.outFolderName, int(args.StripNumber))
+    writer(args.outFolderName, int(args.StripNumber), bool(args.Resistance))
 
 
 if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='Create ND LAr geometry and export mesh')
-    parser.add_argument('-o', '--outFolderName',
-                        default='LArBox',
+    parser.add_argument('outFolderName',
                         help='output folder name (default: LArBox)')
     parser.add_argument('StripNumber',
                         help='Set the number of strips')
+    parser.add_argument('Resistance',
+                        help='Boolean for accurate resistance')
 
     args = parser.parse_args()
 

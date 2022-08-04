@@ -2,10 +2,8 @@ from netgen.occ import *
 from ngsolve import *
 
 
-# All lengths are in units of millimeters!!!!
-
 def buildGeometry(stripWidth, stripSpacing, numberOfStrips):
-    # Parameters for geometry
+    # Parameters
     stripDistance = stripWidth + stripSpacing
     stripThickness = 0.1
     boardThickness = 6.35
@@ -13,13 +11,10 @@ def buildGeometry(stripWidth, stripSpacing, numberOfStrips):
     boxHeight = 3000
     boxWidth = stripDistance * numberOfStrips + stripSpacing
     LArExtension = 100
-
-    # Constructing the geometry
-
+    # Geometry
     # LAr Volume
     shapeLAr = Box(Pnt(-LArExtension, -(boxWidth + (boardThickness/2) + stripThickness + boardThickness) - LArExtension, -LArExtension),
                    Pnt(boxLength + LArExtension, boxWidth + (boardThickness/2) + stripThickness + boardThickness + LArExtension, boxHeight + LArExtension))
-
     # FR4 board for field cage
     outerInsul = Box(Pnt(0, -(boxWidth + (boardThickness/2) + stripThickness + boardThickness), 0), Pnt(boxLength, boxWidth + (boardThickness/2) + stripThickness + boardThickness, boxHeight))
     innerInsul = Box(Pnt(boardThickness, -(boxWidth + (boardThickness/2) + stripThickness), boardThickness), Pnt(boxLength - boardThickness, (boxWidth + (boardThickness/2) + stripThickness), boxHeight - boardThickness))
@@ -49,6 +44,7 @@ def buildGeometry(stripWidth, stripSpacing, numberOfStrips):
                                  boxHeight - boardThickness - stripThickness))
         outerStripTemp -= innerStripTemp
         strips1.append(outerStripTemp)
+
 
     # Strips for other side
     strips2 = []
@@ -85,7 +81,6 @@ def buildGeometry(stripWidth, stripSpacing, numberOfStrips):
         shape.append(strip)
     for strip in strips2:
         shape.append(strip)
-
     return shape
 
 
@@ -95,32 +90,29 @@ def mesh(shape, folderName, meshFineness):
     mesh = Mesh(geo.GenerateMesh(maxh=meshFineness))
     mesh.ngmesh.Export(folderName, "Elmer Format")
 
-    # Make solver file (I think this is only necessary when running the elmer GUI)
+    # Make solver file
     solver = open("./" + folderName + "/ELMERSOLVER_STARTINFO", 'w')
     solver.write("case.sif\n1\n")
     solver.close()
 
 
 def main(args):
-    # Builds the geometry and then meshes it
     Shape = buildGeometry(int(args.StripWidth), int(args.StripSpacing), int(args.StripNumber))
-    mesh(Shape, args.outFolderName, int(args.MeshFineness)) # I had issues when trying to use too coarse of a mesh
-    # (30 mm), however, even a 10mm mesh took close to 2 hours to run on our cluster
+    mesh(Shape, args.outFolderName, int(args.MeshFineness))
 
 
 if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description = 'Create ND LAr geometry and export mesh')
-    parser.add_argument('-o', '--outFolderName',
-                        default = 'LArBox',
+    parser.add_argument('outFolderName',
                         help = 'output folder name (default: LArBox)')
     parser.add_argument('StripWidth',
                         help = 'Set the width of each strip')
     parser.add_argument('StripSpacing',
                         help = 'Set the spacing between each strip')
     parser.add_argument('StripNumber',
-                        help = 'Set the number of strips (on one side of the box)')
+                        help = 'Set the number of strips')
     parser.add_argument('MeshFineness',
                         help='Set the fineness of the mesh')
     
