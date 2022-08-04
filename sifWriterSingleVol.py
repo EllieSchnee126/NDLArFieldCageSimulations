@@ -101,7 +101,10 @@ def writer(folderName, numberOfStrips, resistance):
 
 
 def main(args):
-    writer(args.outFolderName, int(args.StripNumber), bool(args.Resistance))
+    res = True
+    if args.Resistance == "False":
+        res = False
+    writer(args.outFolderName, int(args.StripNumber), res)
 
 
 if __name__ == '__main__':

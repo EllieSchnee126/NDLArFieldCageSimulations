@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def wrtiter(folderName, numberOfStrips, resistance):
+def writer(folderName, numberOfStrips, resistance):
     # Parameters
     peakVoltage = -25000
     voltageDifference = peakVoltage / (numberOfStrips + 1)
@@ -120,7 +120,10 @@ def wrtiter(folderName, numberOfStrips, resistance):
 
 
 def main(args):
-    wrtiter(args.outFolderName, int(args.StripNumber), bool(args.Resistance))
+    res = True
+    if args.Resistance == "False":
+        res = False
+    writer(args.outFolderName, int(args.StripNumber), res)
 
 
 if __name__ == '__main__':
